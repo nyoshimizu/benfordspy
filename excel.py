@@ -87,10 +87,8 @@ class ExcelDB:
                     rw = ws[idx]
                     rwcells = tuple([cell.value for cell in rw])
 
-                    ifincl = any(set.intersection(set(rwcells),
-                                 self.Filter.RowLabels.include))
-                    ifexcl = any(set.intersection(set(rwcells),
-                                 self.Filter.RowLabels.exclude))
+                    ifincl = any(set(rwcells) & self.Filter.RowLabels.include)
+                    ifexcl = any(set(rwcells) & self.Filter.RowLabels.exclude)
                     ifdefault = self.Filter.RowLabels.defaultinclude
 
                     if ifexcl is False and any((ifincl, ifdefault)):
@@ -103,10 +101,8 @@ class ExcelDB:
                     cl = ws[idx]
                     clcells = tuple([cell.value for cell in cl])
 
-                    ifincl = any(set.intersection(set(rwcells),
-                                 self.Filter.ColLabels.include))
-                    ifexcl = any(set.intersection(set(rwcells),
-                                 self.Filter.ColLabels.exclude))
+                    ifincl = any(set(rwcells) & self.Filter.ColLabels.include)
+                    ifexcl = any(set(rwcells) & self.Filter.ColLabels.exclude)
                     ifdefault = self.Filter.ColLabels.defaultinclude
 
                     if ifexcl is False and any((ifincl, ifdefault)):
@@ -120,5 +116,3 @@ class ExcelDB:
                             datareturn += [value]
 
         return datareturn
-
-
