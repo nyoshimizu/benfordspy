@@ -6,7 +6,11 @@ Features to implement:
 -
 """
 
-from openpyxl import load_workbook
+from openpyxl import (load_workbook,
+                      utils
+)
+
+import numpy as np
 
 
 class ExcelDB:
@@ -79,16 +83,22 @@ class ExcelDB:
 
                 ws = self.wb[worksheet]
 
+                lastcell = (utils.get_column_letter(ws.max_column) +
+                            str(ws.max_row)
+                            )
+
+                cells = ws['A1': lastcell]
+
                 # Find range of cells that conform to Filter
 
                 # Filter rows
                 rows = []
-                for idx in range(1, ws.max_row):
-                    rw = ws[idx]
-                    rwcells = tuple([cell.value for cell in rw])
+                for idx in range(ws.max_row):
+                    rw = cells[idx]
+                    rwcells = set([cell.value for cell in rw])
 
-                    ifincl = any(set(rwcells) & self.Filter.RowLabels.include)
-                    ifexcl = any(set(rwcells) & self.Filter.RowLabels.exclude)
+                    ifincl = any(rwcells & self.Filter.RowLabels.include)
+                    ifexcl = any(rwcells & self.Filter.RowLabels.exclude)
                     ifdefault = self.Filter.RowLabels.defaultinclude
 
                     if ifexcl is False and any((ifincl, ifdefault)):
@@ -97,9 +107,9 @@ class ExcelDB:
                 # Filter columns
                 columns = []
 
-                for idx in range(1, ws.max_column):
-                    cl = ws[idx]
-                    clcells = tuple([cell.value for cell in cl])
+                for idx in range(ws.max_column):
+                    cl = tuple(row[idx] for row in cells)
+                    clcells = set([cell.value for cell in cl])
 
                     ifincl = any(set(rwcells) & self.Filter.ColLabels.include)
                     ifexcl = any(set(rwcells) & self.Filter.ColLabels.exclude)
@@ -111,7 +121,7 @@ class ExcelDB:
                 # Extract data from Excel sheet
                 for rw in rows:
                     for cl in columns:
-                        value = ws.cell(row=rw, column=cl).value
+                        value = cells[rw][cl].value
                         if isinstance(value, (int, float)) and value != 0:
                             datareturn += [value]
 
