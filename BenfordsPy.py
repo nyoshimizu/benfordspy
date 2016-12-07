@@ -6,6 +6,7 @@ from excel import ExcelDB
 import numerics
 import dataset
 
+
 class BenfordsPy:
 
     def __init__(self):
@@ -16,22 +17,40 @@ class BenfordsPy:
                      testtype,
                      wkshtincl=None,
                      rowlblincl=None,
-                     rowlblexcl= None,
-                     rowlblincldefault=None,
-                     collblincl= None,
-                     collblexcl= None,
-                     collblincldefault=None,
-                     celrngincl= None,
-                     celrngexcl= None,
-                     celrngincldefault=None,
+                     rowlblexcl=None,
+                     rowlblincldefault=True,
+                     collblincl=None,
+                     collblexcl=None,
+                     collblincldefault=False,
+                     celrngincl=None,
+                     celrngexcl=None,
+                     celrngincldefault=True,
                      plottest=False,
                      printsignificance=False
                      ):
         """
         Analyze data from Excel file.
 
-        :param filename:
-        :return:
+        :param filename: Excel file.
+        :param testtype: Test of significance to apply.
+        :param wkshtincl: Set of worksheet names to include.
+        :param rowlblincl: Set of row labels to include.
+        :param rowlblexcl: Set of row labels to exclude.
+        :param rowlblincldefault: Flag to include rows by default; default value
+        is True.
+        :param collblincl: Set of column labels to include.
+        :param collblexcl: Set of column labels to exclude.
+        :param collblincldefault: Flag to include column by default; default
+        value is False.
+        :param celrngincl: Set of cell ranges to include.
+        :param celrngexcl: Set of cell ranges to exclude.
+        :param celrngincldefault: Flag to include cell ranges by default;
+        default value is True.
+        :param plottest: Flag to plot results; default value is False.
+        :param printsignificance: Flag to output significance test results;
+        default is False.
+
+        :return: Nothing.
         """
 
         db = ExcelDB(filename)
@@ -87,4 +106,5 @@ class BenfordsPy:
                 print("-----  ------------")
                 for alpha in sorted(significance.keys()):
                     print("{:1.2f}   {}".format(alpha, significance[alpha]))
+
 
