@@ -63,22 +63,19 @@ class BenfordsPy:
             db.Filter.RowLabels.include = rowlblincl
         if rowlblexcl and isinstance(rowlblexcl, set):
             db.Filter.RowLabels.exclude = rowlblexcl
-        if rowlblincldefault:
-            db.Filter.RowLabels.defaultinclude = rowlblincldefault
+        db.Filter.RowLabels.defaultinclude = rowlblincldefault
 
         if collblincl and isinstance(collblincl, set):
             db.Filter.ColLabels.include = collblincl
         if collblexcl and isinstance(collblexcl, set):
             db.Filter.ColLabels.exclude = collblexcl
-        if collblincldefault:
-            db.Filter.ColLabels.defaultinclude = collblincldefault
+        db.Filter.ColLabels.defaultinclude = collblincldefault
 
         if celrngincl and isinstance(collblincl, set):
             db.Filter.CellRange.include = celrngincl
         if celrngexcl and isinstance(celrngexcl, set):
             db.Filter.CellRange.exclude = celrngexcl
-        if celrngincldefault:
-            db.Filter.CellRange.defaultinclude = celrngincldefault
+        db.Filter.CellRange.defaultinclude = celrngincldefault
 
         exceldata = db.extractnumbers()
         data.datainit(exceldata)
