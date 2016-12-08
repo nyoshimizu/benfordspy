@@ -3,3 +3,5 @@
 /papers
 /__pycache__
 /.idea
+test.py
+testopenpyxl.py
