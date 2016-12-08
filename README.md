@@ -118,7 +118,6 @@ collblincl, collblexcl, and collbluncldefault.
 # To do:
 
 * Add more significance tests and check existing statistical tests.
-* Load all Excel data at once rather than loading directly from file multiple times.
 * Add web interface.
 * Incorporate regular expressions to data filtering.
 * Incororate filtering by cell ranges.
