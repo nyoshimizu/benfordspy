@@ -8,9 +8,7 @@ Features to implement:
 
 from openpyxl import (load_workbook,
                       utils
-)
-
-import numpy as np
+                      )
 
 
 class ExcelDB:

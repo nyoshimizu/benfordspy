@@ -4,7 +4,6 @@ This class contains the dataset.
 
 import numpy as np
 import benfordspy.numerics as numerics
-import unittest
 
 
 class dataset:
@@ -75,18 +74,3 @@ class dataset:
 
         # Superficial return
         return 1
-
-
-class TestNumerics(unittest.TestCase):
-
-    def test_datafirstdigits(self):
-        d = dataset()
-        d.datainit([1, 234, 5234, 6457, 345])
-        d.updatefirstdigits()
-        self.assertSequenceEqual(d.firstdigits.tolist(),
-                                 np.array([1, 2, 5, 6, 3], dtype=int).tolist()
-                                 )
-
-
-if __name__ == '__main__':
-    unittest.main()
