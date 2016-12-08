@@ -2,9 +2,9 @@
 Run Benford's Law analysis of data.
 """
 
-from excel import ExcelDB
-import numerics
-import dataset
+from benfordspy.excel import ExcelDB
+import benfordspy.numerics as numerics
+import benfordspy.dataset as dataset
 
 
 class BenfordsPy:

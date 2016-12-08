@@ -3,7 +3,7 @@ This class contains the dataset.
 """
 
 import numpy as np
-import numerics
+import benfordspy.numerics as numerics
 import unittest
 
 
