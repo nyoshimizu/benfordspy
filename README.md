@@ -121,3 +121,4 @@ collblincl, collblexcl, and collbluncldefault.
 * Add web interface.
 * Incorporate regular expressions to data filtering.
 * Incororate filtering by cell ranges.
+* Add testing for second, third, etc. digits.
