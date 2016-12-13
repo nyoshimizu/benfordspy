@@ -55,6 +55,7 @@ def kuipertest(firstdigits, plot=False):
 
     firstdigitscdf = np.array(firstdigitscdf)
 
+    # Calculate V value ########################################################
     Dplus = np.abs(np.max(np.subtract(benfcdf, firstdigitscdf)))
 
     Dminus = np.abs(np.max(np.subtract(firstdigitscdf, benfcdf)))
@@ -147,9 +148,7 @@ def kstest(firstdigits, plot=False):
     for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
         firstdigitscdf += [sum(firstdigitspdf[0:k])]
 
-
-    firstdigitscdf = np.array(firstdigitscdf)
-
+    # Calculate D value ########################################################
     D = np.max(np.abs(np.subtract(benfcdf, firstdigitscdf)))
 
     D *= 3  # = sqrt(9)
@@ -195,6 +194,107 @@ def kstestsig(D):
     return {0.10: D > 1.012,
             0.05: D > 1.148,
             0.01: D > 1.420}
+
+
+def mtest(firstdigits, plot=False):
+    """
+    Apply Leemis' m test based on [2010 Morrow]. The modified test statistic
+    m*_N is defined as,
+
+    m*_N = sqrt(N) * max {d=1..9} | Pr(X has X has FSD = d) - Benfords(d) |,
+
+    where N is number of observations, First Significant Digit is d for the
+    observations X, and Benfords is the Befords law for FSD = d, or
+    log10(1+1/d).
+
+    :param firstdigits: Numpy array of ints containing first digits from
+    dataset.
+    :param plot: Flag for plotting results.
+
+    :return: Return m test statistic m.
+    """
+
+    PrX = []
+
+    # Calculate Benford's law CDF ##############################################
+    benfpdf = []
+
+    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+        benfpdf += [benfords(k)]
+
+    assert sum(benfpdf) == 1
+
+    benfcdf = []
+
+    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+        benfcdf += [sum(benfpdf[0:k])]
+
+    assert benfcdf[-1] == 1
+
+    benfcdf = np.array(benfcdf)
+
+    # Calculate input firstdigits CDF ##########################################
+    firstdigitsN = firstdigits.size
+
+    firstdigitspdf = np.bincount(firstdigits)
+
+    firstdigitspdf = list(firstdigitspdf[1:] / firstdigitsN)
+
+    firstdigitscdf = []
+    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+        firstdigitscdf += [sum(firstdigitspdf[0:k])]
+
+    # Calculate m value #########################################################
+    maxPr = 0
+
+    for idx, Pr in enumerate(firstdigitspdf):
+        if Pr > maxPr:
+            maxPr = Pr
+            digit = idx+1
+
+    m = firstdigitsN**(1/2)*abs(maxPr - benfords(digit))
+
+    if plot is True:
+        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    benfcdf,
+                    'b-',
+                    label='Benford\'s law'
+                    )
+        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    firstdigitscdf,
+                    '-ro',
+                    label='Sample data'
+                    )
+        mptlib.xlabel('first digit')
+        mptlib.ylabel('cumulative probability')
+        mptlib.title('Leemis\' m Test')
+        mptlib.grid(True)
+        mptlib.legend(loc='best',
+                      title='m = ' + '{:.4f}'.format(m.item())
+                      )
+        mptlib.show(block=False)
+
+    return m
+
+
+def mtestsig(m):
+    """
+    Calculates whether Leemis' m test value m is significant for
+    levels for alpha = 0.10. 0.05, and 0.01 based on [2010 Morrow]. Returns a
+    dictionary with keys equal to alpha values and values as Boolean of whether
+    m is statistically significant. That is, if V is significant at some
+    significance level, the null hypothesis that the distribution follows
+    Benford's law is rejected.
+
+    :param m: Leemis' m test value m
+
+    :return: Dictionary with keys of significance levels 0.10, 0.05, 0.01 and
+    Boolean values whether D is significant.
+    """
+
+    return {0.10: m > 0.851,
+            0.05: m > 0.967,
+            0.01: m > 1.212}
 
 
 def benfords(firstdigit):

@@ -1,0 +1,187 @@
+QtiPlot 0.9.8 project file
+<scripting-lang>	muParser
+<windows>	4
+<table>
+firstdigit	30	2	12/8/2016 9:52:50 AM
+geometry	0	0	445	220	
+header	1[X]	2[Y]
+ColWidth	100	100	
+<com>
+</com>
+ColType	0;0/13	0;0/13
+ReadOnlyColumn	0	0
+HiddenColumn	0	0
+Comments			
+WindowLabel		2
+<data>
+0	1	0.301029996
+1	2	0.176091259
+2	3	0.124938737
+3	4	0.096910013
+4	5	0.079181246
+5	6	0.06694679
+6	7	0.057991947
+7	8	0.051152522
+8	9	0.045757491
+</data>
+</table>
+<multiLayer>
+Gfirstdigit	1	1	12/8/2016 9:53:12 AM
+geometry	613	103	542	478	active
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	400	300
+Alignement	0	0
+<AlignPolicy>0</AlignPolicy>
+<CommonAxes>0</CommonAxes>
+<graph>
+ggeometry	5	5	516	409
+<PageGeometry>0.0095057	0.0117925	0.980989	0.964623</PageGeometry>
+PlotTitle	 	#000000	4228
+<Antialiasing>0</Antialiasing>
+<Autoscaling>1</Autoscaling>
+<ScaleFonts>1</ScaleFonts>
+<GridOnTop>0</GridOnTop>
+<MissingDataGap>1</MissingDataGap>
+Background	#ffffff	0
+Margin	0
+Border	0	#000000
+grid	0	0	1	1	#0000ff	0	0.5	#a0a0a4	2	0.4	#a0a0a4	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
+EnabledAxes	1	1	1	1	
+AxesTitles	first digit	occurrence		 	
+AxesTitleColors	#000000	#000000	#000000	#000000	
+AxesTitleAlignment	5124	5124	5124	5124
+AxesTitleDistance	2	2	2	2
+InvertedTitle	0	0	0	0
+TitleFont	Helvetica	18	75	0	0	0
+ScaleFont0	Helvetica	18	75	0	0	0
+ScaleFont1	Helvetica	18	75	0	0	0
+ScaleFont2	Helvetica	18	75	0	0	0
+ScaleFont3	Helvetica	18	75	0	0	0
+AxisFont0	Helvetica	16	75	0	0	0
+AxisFont1	Helvetica	16	50	0	0	0
+AxisFont2	Helvetica	16	75	0	0	0
+AxisFont3	Helvetica	16	50	0	0	0
+AxesColors	#000000	#000000	#000000	#000000
+AxesNumberColors	#000000	#000000	#000000	#000000
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffff	0
+curve	firstdigit_1	firstdigit_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#0000ff	0	15	0	2	0	0	29	1
+scale	0	0	0.35	0	5	1	0	0
+scale	1	0	0.35	0	5	1	0	0
+scale	2	0.5	9.5	0	10	0	0	0
+scale	3	0.5	9.5	0	10	0	0	0
+<AxisFormula pos="0">
+x*100
+</AxisFormula>
+LabelsFormat	0	6	0	6	0	6	0	6
+AxisType	0	0	0	0	
+MajorTicks	3	3	3	3
+MinorTicks	3	3	3	3
+TicksLength	6	9
+DrawAxesBackbone	1	1	1	1	1
+AxesLineWidth	3
+LabelsRotation	0	0	0	0
+LabelsPrefix				
+LabelsSuffix	%			
+TickLabelsSpace	4	4	4	4
+ShowTicksPolicy	0	0	0	0
+EnabledTickLabels	1	0	1	0
+</graph>
+<LinkXAxes>0</LinkXAxes>
+<ScaleLayers>1</ScaleLayers>
+</multiLayer>
+<table>
+seconddigit	30	2	12/8/2016 10:00:18 AM
+geometry	-3	25	445	220	
+header	1[X]	2[Y]
+ColWidth	100	100	
+<com>
+</com>
+ColType	0;0/13	0;0/13
+ReadOnlyColumn	0	0
+HiddenColumn	0	0
+Comments			
+WindowLabel		2
+<data>
+0	0	0.119679269
+1	1	0.113890103
+2	2	0.108821499
+3	3	0.10432956
+4	4	0.100308202
+5	5	0.096677236
+6	6	0.093374736
+7	7	0.090351989
+8	8	0.087570054
+9	9	0.084997352
+</data>
+</table>
+<multiLayer>
+Gseconddigit	1	1	12/8/2016 10:01:05 AM
+geometry	47	84	554	478	
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	400	300
+Alignement	0	0
+<AlignPolicy>0</AlignPolicy>
+<CommonAxes>0</CommonAxes>
+<graph>
+ggeometry	5	5	528	409
+<PageGeometry>0.00929368	0.0117925	0.981413	0.964623</PageGeometry>
+PlotTitle	 	#000000	4228
+<Antialiasing>0</Antialiasing>
+<Autoscaling>1</Autoscaling>
+<ScaleFonts>1</ScaleFonts>
+<GridOnTop>0</GridOnTop>
+<MissingDataGap>1</MissingDataGap>
+Background	#ffffff	0
+Margin	0
+Border	0	#000000
+grid	0	0	1	1	#0000ff	0	0.5	#a0a0a4	2	0.4	#a0a0a4	0	0.5	#a0a0a4	2	0.4	0	0	2	0	0
+EnabledAxes	1	1	1	1	
+AxesTitles	first digit	occurrence		 	
+AxesTitleColors	#000000	#000000	#000000	#000000	
+AxesTitleAlignment	5124	5124	5124	5124
+AxesTitleDistance	2	2	2	2
+InvertedTitle	0	0	0	0
+TitleFont	Helvetica	18	75	0	0	0
+ScaleFont0	Helvetica	18	75	0	0	0
+ScaleFont1	Helvetica	18	75	0	0	0
+ScaleFont2	Helvetica	18	75	0	0	0
+ScaleFont3	Helvetica	18	75	0	0	0
+AxisFont0	Helvetica	16	75	0	0	0
+AxisFont1	Helvetica	16	50	0	0	0
+AxisFont2	Helvetica	16	75	0	0	0
+AxisFont3	Helvetica	16	50	0	0	0
+AxesColors	#000000	#000000	#000000	#000000
+AxesNumberColors	#000000	#000000	#000000	#000000
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffff	0
+curve	seconddigit_1	seconddigit_2	3	1	#000000	0	1	7	0	#000000	#000000	1	#0000ff	0	15	0	2	0	0	29	1
+scale	0	0.08	0.13	0	6	1	0	0
+scale	1	0.08	0.13	0	6	1	0	0
+scale	2	-0.5	9.5	0	6	0	0	0
+scale	3	-0.5	9.5	0	6	0	0	0
+<AxisFormula pos="0">
+x*100
+</AxisFormula>
+LabelsFormat	0	6	0	6	0	6	0	6
+AxisType	0	0	0	0	
+MajorTicks	3	3	3	3
+MinorTicks	3	3	3	3
+TicksLength	6	9
+DrawAxesBackbone	1	1	1	1	1
+AxesLineWidth	3
+LabelsRotation	0	0	0	0
+LabelsPrefix				
+LabelsSuffix	%			
+TickLabelsSpace	4	4	4	4
+ShowTicksPolicy	0	0	0	0
+EnabledTickLabels	1	0	1	0
+</graph>
+<LinkXAxes>0</LinkXAxes>
+<ScaleLayers>1</ScaleLayers>
+</multiLayer>
+<open>1</open>

@@ -104,4 +104,12 @@ class BenfordsPy:
                 for alpha in sorted(significance.keys()):
                     print("{:1.2f}   {}".format(alpha, significance[alpha]))
 
-
+        if testtype == "m":
+            self.result = numerics.mtest(data.firstdigits, plot=plottest)
+            print("Leemis' m test value m = {:.4f}".format(self.result))
+            if printsignificance:
+                significance = numerics.mtestsig(self.result)
+                print("Alpha  Significant?")
+                print("-----  ------------")
+                for alpha in sorted(significance.keys()):
+                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
