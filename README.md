@@ -45,13 +45,16 @@ Data can be passed in directly as a Python list of numbers. Data can also be loa
 .xlsx Excel worksheet, filtered by sheet names, row and column identifiers, and specific ranges of
 cells.
 
-# Example
+# Examples
+
+## Excel
 
 An Excel worksheet can be analyzed by creating a BenfordsPy object and running the analyzeexcel function:
 
 ```python
-import BenfordsPy
+import BenfordsPy as BP
 
+test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
 				  )              
@@ -63,8 +66,9 @@ Note that a filename is required, followed by the type of significance test to b
 A plot (which uses Matplotlib) can be generated to view the results:
 
 ```python
-import BenfordsPy
+import BenfordsPy as BP
 
+test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
 				  plottest=True
@@ -74,8 +78,9 @@ test.analyzeexcel('data.xlsx',
 The significance of the result can be printed:
 
 ```python
-import BenfordsPy
+import BenfordsPy as BP
 
+test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
 				  printsignificance=True
@@ -101,8 +106,9 @@ The flag for default inclusion for rows is true but for columns is false.
 
 To exclude the Sheet1 and Sheet2 worksheets, include all rows except Assets:
 ```python
-import BenfordsPy
+import BenfordsPy as BP
 
+test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
 				  wkshtincl={"Sheet1", "Sheet2"},
@@ -121,4 +127,3 @@ collblincl, collblexcl, and collbluncldefault.
 * Add web interface.
 * Incorporate regular expressions to data filtering.
 * Incororate filtering by cell ranges.
-* Add testing for second, third, etc. digits.
