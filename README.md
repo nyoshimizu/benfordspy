@@ -6,7 +6,9 @@ the first digit than larger numbers such as nine. It discovery (in 1881 by
 [Simon Newcomb](https://en.wikipedia.org/wiki/Simon_Newcomb) and in 1938 by 
 [Frank Benford](https://en.wikipedia.org/wiki/Frank_Benford)) came from the observation that 
 logarithm tables appeared to be more worn for number starting with smaller digits. A good background
-is found [here](https://en.wikipedia.org/wiki/Benford%27s_law). 
+is found [here](https://en.wikipedia.org/wiki/Benford%27s_law). Terrence Tao discusses
+[here](https://terrytao.wordpress.com/2009/07/03/benfords-law-zipfs-law-and-the-pareto-distribution/) how
+scale invariance is an important part of the origin of this distribution.
 
 The conformity of numbers to Benford's law is, then, a sort of test of the quality of the underlying 
 dataset. It has been used largely as a tool to detect fraud in forensic accounting, election results,
