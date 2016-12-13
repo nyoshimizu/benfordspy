@@ -113,3 +113,13 @@ class BenfordsPy:
                 print("-----  ------------")
                 for alpha in sorted(significance.keys()):
                     print("{:1.2f}   {}".format(alpha, significance[alpha]))
+
+        if testtype == "d":
+            self.result = numerics.dtest(data.firstdigits, plot=plottest)
+            print("Cho-Gaines' s test value d = {:.4f}".format(self.result))
+            if printsignificance:
+                significance = numerics.dtestsig(self.result)
+                print("Alpha  Significant?")
+                print("-----  ------------")
+                for alpha in sorted(significance.keys()):
+                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
