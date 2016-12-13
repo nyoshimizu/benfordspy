@@ -40,7 +40,23 @@ It should be able to perform the following:
 * Parse / filter that data to create a set of numbers to analyze.
 * Analyze a Benford's law analysis and determine the statistical significance.
 
-In its current form, it can perform a significance test using Kuiper's or Kolmogorov-Smirnov's values.
+In its current form, it can check for statistical significance using the following tests and test values,
+which are from [Maddow](http://www.johnmorrow.info/projects/benford/benfordMain.pdf).
+
+* Kuiper's test
+* Kolmogorov-Smirnov's test
+* Leemis' (et al.) test
+* Cho and Gaines' test
+
+Their significance test values are:
+
+| Test Statistic | &#945; = 0.10 | &#945; = 0.05 | &#945; = 0.01 |
+| ---            | ---           | ---           | ---           |
+| Kuiper         | 1.191         | 1.321         | 1.579         |
+| K-S            | 1.012         | 1.148         | 1.420         |
+| Leemis et al.  | 0.851         | 0.967         | 1.212         |
+| Cho and Gaine  | 1.212         | 1.330         | 1.569         |
+
 Data can be passed in directly as a Python list of numbers. Data can also be loaded in from a
 .xlsx Excel worksheet, filtered by sheet names, row and column identifiers, and specific ranges of
 cells.
@@ -57,7 +73,7 @@ import BenfordsPy as BP
 test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
-				  )              
+                  )
 ```
 
 Note that a filename is required, followed by the type of significance test to be applied. Currently, either
@@ -71,8 +87,8 @@ import BenfordsPy as BP
 test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
-				  plottest=True
-				  )              
+                  plottest=True
+                  )
 ```
 
 The significance of the result can be printed:
@@ -83,8 +99,8 @@ import BenfordsPy as BP
 test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
-				  printsignificance=True
-				  )              
+                  printsignificance=True
+                  )
 ```
 
 Data filtering is available by worksheet name and row/column names.
@@ -111,10 +127,10 @@ import BenfordsPy as BP
 test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
-				  wkshtincl={"Sheet1", "Sheet2"},
+                  wkshtincl={"Sheet1", "Sheet2"},
                   rowlblexcl={"Assets"},
                   rowlblincldefault=True
-				  )              
+                  )
 ```
 
 Similar sets of strings can be passed on for rowblincl, and their respective variables for columns
