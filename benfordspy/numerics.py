@@ -6,6 +6,69 @@ import numpy as np
 import matplotlib.pyplot as mptlib
 
 
+class benfords:
+
+    """
+    Define PDF and CDF for Benford's law.
+    """
+
+    def __init__(self):
+        self.pdf = self.benfpdf()
+        self.cdf = self.benfcdf()
+
+    def benfords(self, firstdigit):
+        """
+        Calculates, based on Benford's law, the probability that the leading digit
+        is equal to firstdigit (1-9) in base 10.
+
+        :param firstdigit: Numerical value of first digit of a number.
+
+        :return: Benford's law probability of firstidigit as first digit of a
+        number.
+        """
+
+        return np.log10(1 + 1 / firstdigit)
+
+    def benfpdf(self):
+        """
+        Calculate Benford's law probability distribution function for first
+        significant digits. Return a dictionary, where key is digit and value
+        is probability.
+
+        :return: dict of Benford's Law PDF for first significant digits.
+        """
+
+        benfpdf = {}
+
+        for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+            benfpdf[k] = self.benfords(k)
+
+        assert sum(benfpdf.values()) == 1
+
+        return benfpdf
+
+    def benfcdf(self):
+        """
+        Calculate Benford's law cumulative distribution function for first
+        significant digits. Return a dictionary, where key is digit and value
+        is probability.
+
+        :return: dict of Benford's Law CDF for first significant digits.
+        """
+
+        benfpdf = self.benfpdf()
+
+        benfcdf = {}
+
+        for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+            benfcdf[k] = sum([benfpdf[m] for m in benfpdf.keys()
+                              if m <= k])
+
+        assert benfcdf[9] == 1
+
+        return benfcdf
+
+
 def kuipertest(firstdigits, plot=False):
     """
     Apply Kuiper's test to set of first digits from dataset. For cumulative
@@ -25,22 +88,8 @@ def kuipertest(firstdigits, plot=False):
     :return: Return Kuiper test statistic V.
     """
 
-    # Calculate Benford's law CDF ##############################################
-    benfpdf = []
-
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        benfpdf += [benfords(k)]
-
-    assert sum(benfpdf) == 1
-
-    benfcdf = []
-
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        benfcdf += [sum(benfpdf[0:k])]
-
-    assert benfcdf[-1] == 1
-
-    benfcdf = np.array(benfcdf)
+    benfcdf = benfords().cdf
+    npbenfcdf = np.array([benfcdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
 
     # Calculate input firstdigits CDF ##########################################
     firstdigitsN = firstdigits.size
@@ -56,15 +105,15 @@ def kuipertest(firstdigits, plot=False):
     firstdigitscdf = np.array(firstdigitscdf)
 
     # Calculate V value ########################################################
-    Dplus = np.abs(np.max(np.subtract(benfcdf, firstdigitscdf)))
+    Dplus = np.abs(np.max(np.subtract(npbenfcdf, firstdigitscdf)))
 
-    Dminus = np.abs(np.max(np.subtract(firstdigitscdf, benfcdf)))
+    Dminus = np.abs(np.max(np.subtract(firstdigitscdf, npbenfcdf)))
 
     V = Dplus + Dminus
 
     if plot is True:
         mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    benfcdf,
+                    npbenfcdf,
                     'b-',
                     label='Benford\'s law')
         mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -121,21 +170,8 @@ def kstest(firstdigits, plot=False):
     :return: Return Kuiper test statistic V.
     """
     # Calculate Benford's law CDF ##############################################
-    benfpdf = []
-
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        benfpdf += [benfords(k)]
-
-    assert sum(benfpdf) == 1
-
-    benfcdf = []
-
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        benfcdf += [sum(benfpdf[0:k])]
-
-    assert benfcdf[-1] == 1
-
-    benfcdf = np.array(benfcdf)
+    benfcdf = benfords().cdf
+    npbenfcdf = np.array([benfcdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
 
     # Calculate input firstdigits CDF ##########################################
     firstdigitsN = firstdigits.size
@@ -149,13 +185,13 @@ def kstest(firstdigits, plot=False):
         firstdigitscdf += [sum(firstdigitspdf[0:k])]
 
     # Calculate D value ########################################################
-    D = np.max(np.abs(np.subtract(benfcdf, firstdigitscdf)))
+    D = np.max(np.abs(np.subtract(npbenfcdf, firstdigitscdf)))
 
     D *= 3  # = sqrt(9)
 
     if plot is True:
         mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    benfcdf,
+                    npbenfcdf,
                     'b-',
                     label='Benford\'s law'
                     )
@@ -216,22 +252,9 @@ def mtest(firstdigits, plot=False):
 
     PrX = []
 
-    # Calculate Benford's law CDF ##############################################
-    benfpdf = []
-
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        benfpdf += [benfords(k)]
-
-    assert sum(benfpdf) == 1
-
-    benfcdf = []
-
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        benfcdf += [sum(benfpdf[0:k])]
-
-    assert benfcdf[-1] == 1
-
-    benfcdf = np.array(benfcdf)
+    # Calculate Benford's law PDF ##############################################
+    benfpdf = benfords().pdf
+    npbenfpdf = np.array([benfpdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
 
     # Calculate input firstdigits CDF ##########################################
     firstdigitsN = firstdigits.size
@@ -250,13 +273,13 @@ def mtest(firstdigits, plot=False):
     for idx, Pr in enumerate(firstdigitspdf):
         if Pr > maxPr:
             maxPr = Pr
-            digit = idx+1
+            maxdigit = idx+1
 
-    m = firstdigitsN**(1/2)*abs(maxPr - benfords(digit))
+    m = firstdigitsN**(1/2)*abs(maxPr - benfpdf[maxdigit])
 
     if plot is True:
         mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    benfpdf,
+                    npbenfpdf,
                     'b-',
                     label='Benford\'s law'
                     )
@@ -315,22 +338,9 @@ def dtest(firstdigits, plot=False):
     :return: Return d test statistic d.
     """
 
-    # Calculate Benford's law CDF ##############################################
-    benfpdf = []
-
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        benfpdf += [benfords(k)]
-
-    assert sum(benfpdf) == 1
-
-    benfcdf = []
-
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        benfcdf += [sum(benfpdf[0:k])]
-
-    assert benfcdf[-1] == 1
-
-    benfcdf = np.array(benfcdf)
+    # Calculate Benford's law PDF ##############################################
+    benfpdf = benfords().pdf
+    npbenfpdf = np.array([benfpdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
 
     # Calculate input firstdigits CDF ##########################################
     firstdigitsN = firstdigits.size
@@ -347,13 +357,13 @@ def dtest(firstdigits, plot=False):
 
     summed = 0
     for idx, Pr in enumerate(firstdigitspdf):
-        summed += (Pr - benfords(idx+1))**2
+        summed += (Pr - benfpdf[idx+1])**2
 
     d = (firstdigitsN * summed)**(1/2)
 
     if plot is True:
         mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    benfpdf,
+                    npbenfpdf,
                     'b-',
                     label='Benford\'s law'
                     )
@@ -392,20 +402,6 @@ def dtestsig(d):
     return {0.10: d > 1.212,
             0.05: d > 1.330,
             0.01: d > 1.569}
-
-
-def benfords(firstdigit):
-    """
-    Calculates, based on Benford's law, the probability that the leading digit
-    is equal to firstdigit (1-9) in base 10.
-
-    :param firstdigit: Numerical value of first digit of a number.
-
-    :return: Benford's law probability of firstidigit as first digit of a
-    number.
-    """
-
-    return np.log10(1+1/firstdigit)
 
 
 def digitn(n, number):
