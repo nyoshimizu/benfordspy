@@ -256,12 +256,12 @@ def mtest(firstdigits, plot=False):
 
     if plot is True:
         mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    benfcdf,
+                    benfpdf,
                     'b-',
                     label='Benford\'s law'
                     )
         mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    firstdigitscdf,
+                    firstdigitspdf,
                     '-ro',
                     label='Sample data'
                     )
