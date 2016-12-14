@@ -70,7 +70,7 @@ cells.
 These are the parameters that guide the analysis.
 
 * *testtype*: A number of significance tests are available, as described above. They are set using the *testtype*
-parameter, and can be set to "Kuiper", "KS", "m", or "d", the latter two corresponding to Leemis' and Cho and Gaines'
+parameter, and can be set to "Kuiper," "KS," "m," or "d," the latter two corresponding to Leemis' and Cho and Gaines'
 tests, respectively.
 * *plottest*: This flag, when True, will generate a plot to view the results using Matplotlib.
 * *printsignificance*: This flag, when True, will print the results of the significance test to the output.
