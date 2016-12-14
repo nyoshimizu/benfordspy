@@ -148,7 +148,7 @@ Similar sets of strings can be passed on for *rowblincl*, and their respective v
 
 # References
 
-<a name="Morrow"> [1] Morrow, J., "[Benford's law, families of distributions and a test basis](cep.lse.ac.uk/pubs/download/dp1291.pdf),"
+<a name="Morrow"> [1] Morrow, J., "[Benford's law, families of distributions and a test basis](http://cep.lse.ac.uk/pubs/download/dp1291.pdf),"
 Center for Economic Performance, London School of Economics, CEP discussion paper 1291,  2014.</a>
 
 <a name="Leemis"> [2] Leemis, L. M., Schmeiser, B. W., and Evans, D. L., "Survival distributions satisfying Benford's Law," *The American
