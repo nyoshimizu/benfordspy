@@ -47,8 +47,8 @@ which are from [Maddow](http://www.johnmorrow.info/projects/benford/benfordMain.
 
 * Kuiper's test
 * Kolmogorov-Smirnov's test
-* Leemis' (et al.) test
-* Cho and Gaines' test
+* Leemis' (et al.) d-test
+* Cho and Gaines' m-test
 
 Their significance test values are:
 
@@ -65,6 +65,33 @@ cells.
 
 # Examples
 
+## Parameters
+
+These are the parameters that guide the analysis.
+
+* *testtype*: A number of significance tests are available, as described above. They are set using the *testtype* parameter, and can be set to
+"KS", "Kuiper", "m", or "d", the latter two corresponding to Leemis' and Cho and Gaines' tests.
+
+* *plottest*: This flag, when True, will generate a plot to view the results usibg Matplotlib.
+
+* *printsignificance*: This flag, when True, will print the results of the significance test to the output.
+
+Their usage can be seen in the examples below.
+
+## Direct analysis
+
+A list can be directly analyzed:
+
+```python
+import benfordspy.BenfordsPy as BP
+
+mydata = [1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 7, 8, 9]
+test = BP.BenfordsPy()
+test.analyzelist(mylist,
+                 testtype="Kuiper"
+                 )
+```
+
 ## Excel
 
 An Excel worksheet can be analyzed by creating a BenfordsPy object and running the analyzeexcel function:
@@ -78,32 +105,7 @@ test.analyzeexcel('data.xlsx',
                   )
 ```
 
-Note that a filename is required, followed by the type of significance test to be applied. Currently, either
-"Kuiper" or "KS" can be used, which are the Kuiper's and Kolomogorov-Smirnov tests, respectively.
-
-A plot (which uses Matplotlib) can be generated to view the results:
-
-```python
-import BenfordsPy as BP
-
-test = BP.BenfordsPy()
-test.analyzeexcel('data.xlsx',
-                  testtype="KS",
-                  plottest=True
-                  )
-```
-
-The significance of the result can be printed:
-
-```python
-import BenfordsPy as BP
-
-test = BP.BenfordsPy()
-test.analyzeexcel('data.xlsx',
-                  testtype="KS",
-                  printsignificance=True
-                  )
-```
+Note that a filename is required, followed by the type of significance test to be applied.
 
 Data filtering is available by worksheet name and row/column names.
 
@@ -137,11 +139,10 @@ test.analyzeexcel('data.xlsx',
 
 Similar sets of strings can be passed on for rowblincl, and their respective variables for columns
 collblincl, collblexcl, and collbluncldefault.
-			  
 
 # To do:
 
 * Add more significance tests and check existing statistical tests.
 * Add web interface.
 * Incorporate regular expressions to data filtering.
-* Incororate filtering by cell ranges.
+* Incorporate filtering by cell ranges.
