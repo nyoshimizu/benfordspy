@@ -57,7 +57,7 @@ Their significance test values are:
 | 1. Kuiper        | 1.191         | 1.321         | 1.579         |
 | 2. K-S           | 1.012         | 1.148         | 1.420         |
 | 3. Leemis et al. | 0.851         | 0.967         | 1.212         |
-| 4. Cho and Gaine | 1.212         | 1.330         | 1.569         |
+| 4. Cho and Gaines| 1.212         | 1.330         | 1.569         |
 
 Data can be passed in directly as a Python list of numbers. Data can also be loaded from a
 .xlsx Excel worksheet, filtered by sheet names, row and column identifiers, and specific ranges of
