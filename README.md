@@ -43,12 +43,12 @@ It should be able to perform the following:
 * Apply a Benford's law analysis and determine the statistical significance.
 
 In its current form, it can check for statistical significance using the following tests and test values,
-which are from [Maddow](http://www.johnmorrow.info/projects/benford/benfordMain.pdf).
+which are from Morrow<sup>[1](#Morrow)</sup>.
 
-1. Kuiper's test
-2. Kolmogorov-Smirnov's test
-3. Leemis' (et al.) d-test
-4. Cho and Gaines' m-test
+1. [Kuiper's test](https://en.wikipedia.org/wiki/Kuiper's_test)
+2. [Kolmogorov-Smirnov's test](https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test)
+3. Leemis' (et al.) d-test<sup>[2](#Leemis)</sup>
+4. Cho and Gaines' m-test<sup>[3](#Cho-Gaines)</sup>
 
 Their significance test values are:
 
@@ -146,3 +146,14 @@ Similar sets of strings can be passed on for *rowblincl*, and their respective v
 * Add web interface.
 * Incorporate regular expressions to data filtering.
 * Incorporate filtering by cell ranges.
+
+# References
+
+<a name="Morrow"> [1] Morrow, J., "[Benford's law, families of distributions and a test basis](cep.lse.ac.uk/pubs/download/dp1291.pdf),"
+Center for Economic Performance, London School of Economics, CEP discussion paper 1291,  2014.</a>
+
+<a name="Leemis"> [2] Leemis, L. M., Schmeiser, B. W., and Evans, D. L., "Survival distributions satisfying Benford's Law," *The American
+Statistician*, **54**, pp. 236--241, 2000. </a>
+
+<a name="Cho-Gaines"> [3] Cho, W. K. T., and Gaines, B. J., "Breaking the (Benford) law: statistical fraud detection in campaign finance,"
+*The American Statistician*, **61**, pp. 218--33, 2007.
