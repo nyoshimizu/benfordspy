@@ -3,17 +3,18 @@
 Benford's law is an empirically observed phenomenon where the first significant digit of sets of
 numerical data follow a logarithmic distribution. Smaller digits such as one are more frequent as
 the first digit than larger numbers such as nine. It discovery (in 1881 by 
-[Simon Newcomb](https://en.wikipedia.org/wiki/Simon_Newcomb) and in 1938 by 
-[Frank Benford](https://en.wikipedia.org/wiki/Frank_Benford)) came from the observation that 
-logarithm tables appeared to be more worn for number starting with smaller digits. A good background
-is found [here](https://en.wikipedia.org/wiki/Benford%27s_law). Terrence Tao discusses
-[here](https://terrytao.wordpress.com/2009/07/03/benfords-law-zipfs-law-and-the-pareto-distribution/) how
-scale invariance is an important part of the origin of this distribution.
+<a href="https://en.wikipedia.org/wiki/Simon_Newcomb" target="_blank">Simon Newcomb</a> and in 1938 by
+<a href="https://en.wikipedia.org/wiki/Frank_Benford" target="_blank">Frank Benford</a> came from the
+observation that logarithm tables appeared to be more worn for number starting with smaller digits. A
+good background is found <a href="https://en.wikipedia.org/wiki/Benford%27s_law" target="_blank">here</a>.
+Terrence Tao discusses
+<a href="https://terrytao.wordpress.com/2009/07/03/benfords-law-zipfs-law-and-the-pareto-distribution/"
+target="_blank">here</a> how scale invariance is important in understanding the origin of this distribution.
 
 The conformity of numbers to Benford's law is, then, a sort of test of the quality of the underlying 
 dataset. It has been used largely as a tool to detect fraud in forensic accounting, election results,
 macroeconomic data, etc. but also to help assess the quality of scietific data (e.g., see
-[here](http://www.checkyourdata.com/index.php)).
+<a href="http://www.checkyourdata.com/index.php" target="_blank">here</a>).
 
 Note that there are apparently many subtleties to applying Benford's law. For example, the set of 
 numbers should extend multiple orders of magnitude, so that that occurrence of smaller and larger digits
@@ -44,8 +45,8 @@ It should be able to perform the following:
 In its current form, it can check for statistical significance using the following tests and test values,
 which are from Morrow<sup>[1](#Morrow)</sup>.
 
-1. [Kuiper's test](https://en.wikipedia.org/wiki/Kuiper's_test)
-2. [Kolmogorov-Smirnov's test](https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test)
+1. <a href="https://en.wikipedia.org/wiki/Kuiper's_test" target="_blank">Kuiper's test</a>
+2. <a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test" target="_blank">Kolmogorov-Smirnov's test</a>
 3. Leemis' (et al.) d-test<sup>[2](#Leemis)</sup>
 4. Cho and Gaines' m-test<sup>[3](#Cho-Gaines)</sup>
 
@@ -71,9 +72,7 @@ These are the parameters that guide the analysis.
 * *testtype*: A number of significance tests are available, as described above. They are set using the *testtype*
 parameter, and can be set to "Kuiper", "KS", "m", or "d", the latter two corresponding to Leemis' and Cho and Gaines'
 tests, respectively.
-
 * *plottest*: This flag, when True, will generate a plot to view the results using Matplotlib.
-
 * *printsignificance*: This flag, when True, will print the results of the significance test to the output.
 
 Their usage can be seen in the examples below.
@@ -111,7 +110,6 @@ Data filtering is available by worksheet name and row/column names.
 
 * Worksheet names: The name(s) of worksheets to be included must be explicitly included if
 they are to contribute to the data. This is a set of strings, such as {"Sheet1", "Sheet2"}.
-
 * Row and column labels: The cells to be included can be filtered by strings in the worksheet. If a row
 containing "Assets" is desired, the string "Assets" can be included so that any rows/columns that
 include that string anywhere in that row/column (exact and case-sensitive) will contribute to the analysis.
@@ -148,7 +146,7 @@ Similar sets of strings can be passed on for *rowblincl*, and their respective v
 
 # References
 
-<a name="Morrow"> [1] Morrow, J., "[Benford's law, families of distributions and a test basis](http://cep.lse.ac.uk/pubs/download/dp1291.pdf),"
+<a name="Morrow"> [1] Morrow, J., "<a href="http://cep.lse.ac.uk/pubs/download/dp1291.pdf" target="_blank">Benford's law, families of distributions and a test basis</a>,"
 Center for Economic Performance, London School of Economics, CEP discussion paper 1291,  2014.</a>
 
 <a name="Leemis"> [2] Leemis, L. M., Schmeiser, B. W., and Evans, D. L., "Survival distributions satisfying Benford's Law," *The American
