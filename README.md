@@ -26,7 +26,7 @@ fraud would become lost in the much larger set. It may be more effective to anal
 of data.
 
 To the last two points about filtering out artificially restricted numbers and applying the analysis to 
-whole vs subsets of data, it implies an importance in consciously filtering data before
+whole vs subsets of data, it implies an importance in deliberately filtering data before
 applying the statistical analysis. This is to be discussed below in what capabilities the package should have.
 
 Finally, there are several proposed tests for determining the significance of an observed distribution
