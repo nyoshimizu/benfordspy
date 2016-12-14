@@ -150,7 +150,7 @@ Similar sets of strings can be passed on for *rowblincl*, and their respective v
 Center for Economic Performance, London School of Economics, CEP discussion paper 1291,  2014.</a>
 
 <a name="Leemis"> [2] Leemis, L. M., Schmeiser, B. W., and Evans, D. L., "Survival distributions satisfying Benford's Law," *The American
-Statistician*, **54**, pp. 236&mdash;241, 2000. </a>
+Statistician*, **54**, pp. 236&mdash;41, 2000. </a>
 
 <a name="Cho-Gaines"> [3] Cho, W. K. T., and Gaines, B. J., "Breaking the (Benford) law: statistical fraud detection in campaign finance,"
 *The American Statistician*, **61**, pp. 218&mdash;33, 2007.
