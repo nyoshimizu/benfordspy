@@ -17,24 +17,23 @@ macroeconomic data, etc. but also to help assess the quality of scietific data (
 
 Note that there are apparently many subtleties to applying Benford's law. For example, the set of 
 numbers should extend multiple orders of magnitude, so that that occurrence of smaller and larger digits
-are well represented. Parts of datasets which are artificially restricted (e.g., a preference to 
+are well represented. Parts of data sets which are artificially restricted (e.g., a preference to
 purchase at $x.99 prices) will skew the observed distribution, although those are essentially just acts 
 of "fraud" without the nefarious intent and can be detected just as well. As the analysis relies on a 
-cumulative count, analyzing large datasets may not necessarily be advantageous: small subsets of 
+cumulative count, analyzing large data sets may not necessarily be advantageous: small subsets of
 fraud would become lost in the much larger set. It may be more effective to analyze smaller chunks
 of data.
 
 To the last two points about filtering out artificially restricted numbers and applying the analysis to 
-whole vs smaller subsets of data, it implies an importance in being able to conscously filter data before 
-applying the statistical analysis, to be discussed below in what should be inluded in the code.
+whole vs subsets of data, it implies an importance in consciously filtering data before
+applying the statistical analysis. This is to be discussed below in what capabilities the package should have.
 
 Finally, there are several proposed tests for determining the significance of an observed distribution
-of leading significant digits.
+of leading significant digits. They are also discussed below.
 
 # Overview of package
 
-This package is a set of tools for applying Benford's law analysis, in early but otherwise working form 
-(alpha?).
+This package is a set of tools for applying Benford's law analysis, in early but otherwise working form.
 
 It should be able to perform the following:
 
@@ -59,7 +58,7 @@ Their significance test values are:
 | 3. Leemis et al. | 0.851         | 0.967         | 1.212         |
 | 4. Cho and Gaine | 1.212         | 1.330         | 1.569         |
 
-Data can be passed in directly as a Python list of numbers. Data can also be loaded in from a
+Data can be passed in directly as a Python list of numbers. Data can also be loaded from a
 .xlsx Excel worksheet, filtered by sheet names, row and column identifiers, and specific ranges of
 cells.
 
@@ -70,10 +69,10 @@ cells.
 These are the parameters that guide the analysis.
 
 * *testtype*: A number of significance tests are available, as described above. They are set using the *testtype*
-parameter, and can be set to "KS", "Kuiper", "m", or "d", the latter two corresponding to Leemis' and Cho and Gaines'
-tests, repectively.
+parameter, and can be set to "Kuiper", "KS", "m", or "d", the latter two corresponding to Leemis' and Cho and Gaines'
+tests, respectively.
 
-* *plottest*: This flag, when True, will generate a plot to view the results usibg Matplotlib.
+* *plottest*: This flag, when True, will generate a plot to view the results using Matplotlib.
 
 * *printsignificance*: This flag, when True, will print the results of the significance test to the output.
 
@@ -115,13 +114,13 @@ they are to contribute to the data. This is a set of strings, such as {"Sheet1",
 
 * Row and column labels: The cells to be included can be filtered by strings in the worksheet. If a row
 containing "Assets" is desired, the string "Assets" can be included so that any rows/columns that
-include that string *anywhere* in that row/column (exact and case-sensitive) will contribute to the analysis.
-Rows/columns can be both included and excluded. There is also a flag for inclusion by default for cases where
+include that string anywhere in that row/column (exact and case-sensitive) will contribute to the analysis.
+Rows/columns can be both included and excluded. There is also a flag for inclusion by default, used for cases where
 a row/column label is not explicitly included or excluded.
 
-Note that a row/column is included if it is not in the exclude list and it is either in the include list
+Note that a row/column is included if it is not in the exclude list, and it is in the include list
 or the default inclusion flag is true. So if a row/column name is in both the inclusion and exclusion
-lists, it will be included or excluded based on the default inclusion flag.
+lists (presumably a mistake), it will be included or excluded based on the default inclusion flag.
 
 The default value for the flag for default inclusion for rows is False but for columns is True.
 
