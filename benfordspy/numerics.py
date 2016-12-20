@@ -201,7 +201,7 @@ def test(testtype, firstdigits, plot=False, printsignificance=False):
 
     if printsignificance is True:
         significance = testsig(testtype, testvalue)
-        print("BAlpha  Significant?")
+        print("Alpha  Significant?")
         print("-----  ------------")
         for alpha in sorted(significance.keys()):
             print("{:1.2f}   {}".format(alpha, significance[alpha]))
