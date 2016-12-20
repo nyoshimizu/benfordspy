@@ -69,341 +69,6 @@ class benfords:
         return benfcdf
 
 
-def kuipertest(firstdigits, plot=False):
-    """
-    Apply Kuiper's test to set of first digits from dataset. For cumulative
-    distributions CDF1 and CDF2, which is a function of random variable
-    x_i (i = 1,..n).
-    Then
-
-    D+ = max[CDF2(x_i) - CDF1(x_i)]
-    D- = max[CDF1(x_i) - CDF2(x_i)]
-
-    and the test statistic V = D+ + D-, using positive distances D+ and D-.
-
-    :param firstdigits: Numpy array of ints containing first digits from
-    dataset.
-    :param plot: Flag for plotting results.
-
-    :return: Return Kuiper test statistic V.
-    """
-
-    benfcdf = benfords().cdf
-    npbenfcdf = np.array([benfcdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
-
-    # Calculate input firstdigits CDF ##########################################
-    firstdigitsN = firstdigits.size
-
-    firstdigitspdf = np.bincount(firstdigits)
-
-    firstdigitspdf = list(firstdigitspdf[1:]/firstdigitsN)
-
-    firstdigitscdf = []
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        firstdigitscdf += [sum(firstdigitspdf[0:k])]
-
-    firstdigitscdf = np.array(firstdigitscdf)
-
-    # Calculate V value ########################################################
-    Dplus = np.abs(np.max(np.subtract(npbenfcdf, firstdigitscdf)))
-
-    Dminus = np.abs(np.max(np.subtract(firstdigitscdf, npbenfcdf)))
-
-    V = Dplus + Dminus
-
-    if plot is True:
-        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    npbenfcdf,
-                    'b-',
-                    label='Benford\'s law')
-        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    firstdigitscdf,
-                    '-ro',
-                    label='Sample data')
-        mptlib.xlabel('first digit')
-        mptlib.ylabel('cumulative probability')
-        mptlib.title('Kuiper\'s Test')
-        mptlib.grid(True)
-        mptlib.legend(loc='best',
-                      title='V = ' + '{:.4f}'.format(V.item())
-                      )
-        mptlib.show(block=False)
-
-    return V
-
-
-def kuipertestsig(V):
-    """
-    Calculates whether Kuiper's test value V is significant for levels for
-    alpha = 0.10. 0.05, and 0.01 based on [2010 Morrow]. Returns a dictionary
-    with keys equal to alpha values and values as Boolean of whether V is
-    statistically significant. That is, if V is significant at some significance
-    level, the null hypothesis that the distribution follows Benford's law
-    is rejected.
-
-    :param V: Kuiper's test value V
-
-    :return: Dictionary with keys of significance levels 0.10, 0.05, 0.01 and
-    Boolean values whether V is significant.
-    """
-
-    return {0.10: V > 1.191,
-            0.05: V > 1.321,
-            0.01: V > 1.579}
-
-
-def kstest(firstdigits, plot=False):
-    """
-    Apply Kolmogorov-Smirnov test to set of first digits from dataset. For
-    cumulative distributions CDF1 and CDF2, which is a function of random
-    variable x_i (i = 1,..n).
-    Then
-
-    D = max[abs(CDF2(x_i) - CDF1(x_i))],
-
-    that is, the maximum distance between CDF's.
-
-    :param firstdigits: Numpy array of ints containing first digits from
-    dataset.
-    :param plot: Flag for plotting results.
-
-    :return: Return Kuiper test statistic V.
-    """
-    # Calculate Benford's law CDF ##############################################
-    benfcdf = benfords().cdf
-    npbenfcdf = np.array([benfcdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
-
-    # Calculate input firstdigits CDF ##########################################
-    firstdigitsN = firstdigits.size
-
-    firstdigitspdf = np.bincount(firstdigits)
-
-    firstdigitspdf = list(firstdigitspdf[1:]/firstdigitsN)
-
-    firstdigitscdf = []
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        firstdigitscdf += [sum(firstdigitspdf[0:k])]
-
-    # Calculate D value ########################################################
-    D = np.max(np.abs(np.subtract(npbenfcdf, firstdigitscdf)))
-
-    D *= 3  # = sqrt(9)
-
-    if plot is True:
-        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    npbenfcdf,
-                    'b-',
-                    label='Benford\'s law'
-                    )
-        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    firstdigitscdf,
-                    '-ro',
-                    label='Sample data'
-                    )
-        mptlib.xlabel('first digit')
-        mptlib.ylabel('cumulative probability')
-        mptlib.title('Kolmogorov–Smirnov Test')
-        mptlib.grid(True)
-        mptlib.legend(loc='best',
-                      title='D = ' + '{:.4f}'.format(D.item())
-                      )
-        mptlib.show(block=False)
-
-    return D
-
-
-def kstestsig(D):
-    """
-    Calculates whether the Kolmogorov-Smirnov test value D is significant for
-    levels for alpha = 0.10. 0.05, and 0.01 based on [2010 Morrow]. Returns a
-    dictionary with keys equal to alpha values and values as Boolean of whether
-    V is statistically significant. That is, if V is significant at some
-    significance level, the null hypothesis that the distribution follows
-    Benford's law is rejected.
-
-    :param D: Kolmogorov-Smirnov test value D
-
-    :return: Dictionary with keys of significance levels 0.10, 0.05, 0.01 and
-    Boolean values whether D is significant.
-    """
-
-    return {0.10: D > 1.012,
-            0.05: D > 1.148,
-            0.01: D > 1.420}
-
-
-def mtest(firstdigits, plot=False):
-    """
-    Apply Leemis' m test based on [2010 Morrow]. The modified test statistic
-    m*_N is defined as,
-
-    m*_N = sqrt(N) * max {d=1..9} | Pr(X has X has FSD = d) - Benfords(d) |,
-
-    where N is number of observations, First Significant Digit is d for the
-    observations X, and Benfords is the Befords law for FSD = d, or
-    log10(1+1/d).
-
-    :param firstdigits: Numpy array of ints containing first digits from
-    dataset.
-    :param plot: Flag for plotting results.
-
-    :return: Return m test statistic m.
-    """
-
-    PrX = []
-
-    # Calculate Benford's law PDF ##############################################
-    benfpdf = benfords().pdf
-    npbenfpdf = np.array([benfpdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
-
-    # Calculate input firstdigits CDF ##########################################
-    firstdigitsN = firstdigits.size
-
-    firstdigitspdf = np.bincount(firstdigits)
-
-    firstdigitspdf = list(firstdigitspdf[1:] / firstdigitsN)
-
-    firstdigitscdf = []
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        firstdigitscdf += [sum(firstdigitspdf[0:k])]
-
-    # Calculate m value ########################################################
-    maxPr = 0
-
-    for idx, Pr in enumerate(firstdigitspdf):
-        if Pr > maxPr:
-            maxPr = Pr
-            maxdigit = idx+1
-
-    m = firstdigitsN**(1/2)*abs(maxPr - benfpdf[maxdigit])
-
-    if plot is True:
-        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    npbenfpdf,
-                    'b-',
-                    label='Benford\'s law'
-                    )
-        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    firstdigitspdf,
-                    '-ro',
-                    label='Sample data'
-                    )
-        mptlib.xlabel('first digit')
-        mptlib.ylabel('cumulative probability')
-        mptlib.title('Leemis\' m Test')
-        mptlib.grid(True)
-        mptlib.legend(loc='best',
-                      title='m = ' + '{:.4f}'.format(m.item())
-                      )
-        mptlib.show(block=False)
-
-    return m
-
-
-def mtestsig(m):
-    """
-    Calculates whether Leemis' m test value m is significant for
-    levels for alpha = 0.10. 0.05, and 0.01 based on [2010 Morrow]. Returns a
-    dictionary with keys equal to alpha values and values as Boolean of whether
-    m is statistically significant. That is, if m is significant at some
-    significance level, the null hypothesis that the distribution follows
-    Benford's law is rejected.
-
-    :param m: Leemis' m test value m
-
-    :return: Dictionary with keys of significance levels 0.10, 0.05, 0.01 and
-    Boolean values whether m is significant.
-    """
-
-    return {0.10: m > 0.851,
-            0.05: m > 0.967,
-            0.01: m > 1.212}
-
-
-def dtest(firstdigits, plot=False):
-    """
-    Apply Cho-Gaines' d test based on [2010 Morrow]. The modified test statistic
-    d*_N is defined as,
-
-    d*_N = sqrt(N * sum {d=1..9} (Pr(X has X has FSD = d) - Benfords(d))**2 ),
-
-    where N is number of observations, First Significant Digit is d for the
-    observations X, and Benfords is the Befords law for FSD = d, or
-    log10(1+1/d).
-
-    :param firstdigits: Numpy array of ints containing first digits from
-    dataset.
-    :param plot: Flag for plotting results.
-
-    :return: Return d test statistic d.
-    """
-
-    # Calculate Benford's law PDF ##############################################
-    benfpdf = benfords().pdf
-    npbenfpdf = np.array([benfpdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
-
-    # Calculate input firstdigits CDF ##########################################
-    firstdigitsN = firstdigits.size
-
-    firstdigitspdf = np.bincount(firstdigits)
-
-    firstdigitspdf = list(firstdigitspdf[1:] / firstdigitsN)
-
-    firstdigitscdf = []
-    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        firstdigitscdf += [sum(firstdigitspdf[0:k])]
-
-    # Calculate d value ########################################################
-
-    summed = 0
-    for idx, Pr in enumerate(firstdigitspdf):
-        summed += (Pr - benfpdf[idx+1])**2
-
-    d = (firstdigitsN * summed)**(1/2)
-
-    if plot is True:
-        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    npbenfpdf,
-                    'b-',
-                    label='Benford\'s law'
-                    )
-        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    firstdigitspdf,
-                    '-ro',
-                    label='Sample data'
-                    )
-        mptlib.xlabel('first digit')
-        mptlib.ylabel('cumulative probability')
-        mptlib.title('Cho-Gaines\' d Test')
-        mptlib.grid(True)
-        mptlib.legend(loc='best',
-                      title='d = ' + '{:.4f}'.format(d.item())
-                      )
-        mptlib.show(block=False)
-
-    return d
-
-
-def dtestsig(d):
-    """
-    Calculates whether Cho-Gaines' d test value m is significant for
-    levels for alpha = 0.10. 0.05, and 0.01 based on [2010 Morrow]. Returns a
-    dictionary with keys equal to alpha values and values as Boolean of whether
-    m is statistically significant. That is, if d is significant at some
-    significance level, the null hypothesis that the distribution follows
-    Benford's law is rejected.
-
-    :param m: Cho-Gaines\' d test value d
-
-    :return: Dictionary with keys of significance levels 0.10, 0.05, 0.01 and
-    Boolean values whether d is significant.
-    """
-
-    return {0.10: d > 1.212,
-            0.05: d > 1.330,
-            0.01: d > 1.569}
-
-
 def digitn(n, number):
     """
     Returns nth digit, where 1 is the most significant digit, of input number.
@@ -429,6 +94,163 @@ def digitn(n, number):
     n -= temp
 
     return n
+
+
+def test(testtype, firstdigits, plot=False, printsignificance=False):
+    """
+    Combine all tests into one function. Calculates Benford's law PDF and CDF,
+    then calculates the test value (e.g. Kuiper's, etc.). Then outputs plot
+    or prints significance results, and returns test value.
+
+    :param testtype: String of type of test to perform: Kuiper, KS, m, or d.
+    :param firstdigits: Numpy array of first digits, usually passed in using
+    dataset.dataset class.
+    :param plot: Boolean of whether to plot PDF result.
+    :param printsignificance: Boolean of whether to print significance test
+    results to output.
+
+    :return: Returns test value.
+    """
+
+    testvar = {"Kuiper": "V",
+               "KS": "D",
+               "m": "m",
+               "d": "d"
+               }
+
+    testname = {"Kuiper": "Kuiper's",
+                "KS": "Kolmogorov-Smirnov",
+                "m": "Leemis\'",
+                "d": "Cho-Gaines\'"
+                }
+
+    # Calculate Benford's law PDF ##############################################
+    benfpdf = benfords().pdf
+    npbenfpdf = np.array([benfpdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
+
+    # Calculate Benford's law CDF ##############################################
+    benfcdf = benfords().cdf
+    npbenfcdf = np.array([benfcdf[k] for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]])
+
+    # Calculate input firstdigits PDF ##########################################
+    firstdigitsN = firstdigits.size
+
+    firstdigitspdf = np.bincount(firstdigits)
+    firstdigitspdf = list(firstdigitspdf[1:] / firstdigitsN)
+
+    # Calculate input firstdigits CDF ##########################################
+    firstdigitscdf = []
+    for k in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+        firstdigitscdf += [sum(firstdigitspdf[0:k])]
+
+    # Calculate test value #####################################################
+    if testtype == "Kuiper":
+        Dplus = np.abs(np.max(np.subtract(npbenfcdf, firstdigitscdf)))
+        Dminus = np.abs(np.max(np.subtract(firstdigitscdf, npbenfcdf)))
+
+        V = Dplus + Dminus
+        testvalue = V
+
+    elif testtype == "KS":
+        D = np.max(np.abs(np.subtract(npbenfcdf, firstdigitscdf)))
+        D *= 3  # = sqrt(9)
+        testvalue = D
+
+    elif testtype == "m":
+        maxPr = 0
+
+        for idx, Pr in enumerate(firstdigitspdf):
+            if Pr > maxPr:
+                maxPr = Pr
+                maxdigit = idx + 1
+
+        m = firstdigitsN ** (1 / 2) * abs(maxPr - benfpdf[maxdigit])
+        testvalue = m
+
+    elif testtype == "d":
+        summed = 0
+        for idx, Pr in enumerate(firstdigitspdf):
+            summed += (Pr - benfpdf[idx + 1]) ** 2
+
+        d = (firstdigitsN * summed) ** (1 / 2)
+        testvalue = d
+
+    # Plot results #############################################################
+    if plot is True:
+        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    npbenfpdf,
+                    'b-',
+                    label='Benford\'s law'
+                    )
+        mptlib.plot([1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    firstdigitspdf,
+                    '-ro',
+                    label='Sample data'
+                    )
+        mptlib.xlabel('first digit')
+        mptlib.ylabel('probability')
+        mptlib.title(testname[testtype] + ' ' + 'Test')
+        mptlib.grid(True)
+        mptlib.legend(loc='best',
+                      title=testvar[testtype] +
+                      ' = ' + '{:.4f}'.format(testvalue)
+                      )
+        mptlib.show(block=False)
+
+    # Print significance #######################################################
+
+    if printsignificance is True:
+        significance = testsig(testtype, testvalue)
+        print("BAlpha  Significant?")
+        print("-----  ------------")
+        for alpha in sorted(significance.keys()):
+            print("{:1.2f}   {}".format(alpha, significance[alpha]))
+
+    return testvalue
+
+
+def testsig(testtype, testvalue):
+    """
+    Tests whether test value is significant. Returns a dictionary with keys
+    equal to alpha values and values as Boolean of whether test value is
+    statistically significant. That is, if testvalue is significant at some
+    significance level, the null hypothesis that the distribution follows
+    Benford's law is rejected.
+
+    :testtype:
+    For "Kuiper", calculates whether Kuiper's test value V is significant for
+    levels for alpha = 0.10. 0.05, and 0.01 based on [2010 Morrow].
+    For "KS", calculates whether the Kolmogorov-Smirnov test value D is
+    significant for levels for alpha = 0.10. 0.05, and 0.01 based on
+    [2010 Morrow].
+    For "m", calculates whether Leemis' m test value m is significant for
+    levels for alpha = 0.10. 0.05, and 0.01 based on [2010 Morrow].
+    For "d", calculates whether Cho-Gaines' d test value d is significant for
+    levels for alpha = 0.10. 0.05, and 0.01 based on [2010 Morrow].
+
+    :return: Returns dictionary of keys of alpha and values of whether test
+    value is significant or not (T/F).
+    """
+
+    if testtype == "Kuiper":
+        return {0.10: testvalue > 1.191,
+                0.05: testvalue > 1.321,
+                0.01: testvalue > 1.579}
+
+    elif testtype == "KS":
+        return {0.10: testvalue > 1.012,
+                0.05: testvalue > 1.148,
+                0.01: testvalue > 1.420}
+
+    elif testtype == "m":
+        return {0.10: testvalue > 0.851,
+                0.05: testvalue > 0.967,
+                0.01: testvalue > 1.212}
+
+    elif testtype == "d":
+        return {0.10: testvalue > 1.212,
+                0.05: testvalue > 1.330,
+                0.01: testvalue > 1.569}
 
 
 def magnitudebin(data):
