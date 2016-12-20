@@ -4,9 +4,9 @@ Benford's law is an empirically observed phenomenon where the first significant 
 numerical data follow a logarithmic distribution. Smaller digits such as one are more frequent as
 the first digit than larger numbers such as nine. It discovery (in 1881 by 
 <a href="https://en.wikipedia.org/wiki/Simon_Newcomb" target="_blank">Simon Newcomb</a> and in 1938 by
-<a href="https://en.wikipedia.org/wiki/Frank_Benford" target="_blank">Frank Benford</a> came from the
+<a href="https://en.wikipedia.org/wiki/Frank_Benford" target="_blank">Frank Benford</a>) came from the
 observation that logarithm tables appeared to be more worn for number starting with smaller digits. A
-good background is found <a href="https://en.wikipedia.org/wiki/Benford%27s_law" target="_blank">here</a>.
+good background is found at <a href="https://en.wikipedia.org/wiki/Benford%27s_law" target="_blank">Wikipedia</a>.
 Terrence Tao discusses
 <a href="https://terrytao.wordpress.com/2009/07/03/benfords-law-zipfs-law-and-the-pareto-distribution/"
 target="_blank">here</a> how scale invariance is important in understanding the origin of this distribution.
@@ -47,8 +47,8 @@ which are from Morrow<sup>[1](#Morrow)</sup>.
 
 1. <a href="https://en.wikipedia.org/wiki/Kuiper's_test" target="_blank">Kuiper's test</a>
 2. <a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test" target="_blank">Kolmogorov-Smirnov's test</a>
-3. Leemis' (et al.) d-test<sup>[2](#Leemis)</sup>
-4. Cho and Gaines' m-test<sup>[3](#Cho-Gaines)</sup>
+3. Modified Leemis' (et al.) d test<sup>[2](#Leemis)</sup>
+4. Modified Cho and Gaines' m test<sup>[3](#Cho-Gaines)</sup>
 
 Their significance test values are:
 
@@ -140,9 +140,11 @@ Similar sets of strings can be passed on for *rowblincl*, and their respective v
 
 # To do:
 
+* Add interface for CSV, XML, JSON(?).
 * Add web interface.
+* Incorporate some sort of automated subset analysis.
 * Incorporate regular expressions to data filtering.
-* Incorporate filtering by cell ranges.
+* Incorporate filtering by cell ranges of Excel files.
 
 # References
 
