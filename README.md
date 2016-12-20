@@ -63,7 +63,7 @@ Data can be passed in directly as a Python list of numbers. Data can also be loa
 .xlsx Excel worksheet, filtered by sheet names, row and column identifiers, and specific ranges of
 cells.
 
-# Examples
+# Usage
 
 ## Parameters
 
