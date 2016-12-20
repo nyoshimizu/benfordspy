@@ -12,6 +12,18 @@ class BenfordsPy:
     def __init__(self):
         self.result = 0
 
+    def dotest(self,
+               data,
+               testtype,
+               plottest=False,
+               printsignificance=False
+               ):
+
+        self.result = numerics.test(testtype,
+                                    data.firstdigits,
+                                    plottest,
+                                    printsignificance)
+
     def analyzelist(self,
                     input,
                     testtype,
@@ -41,45 +53,11 @@ class BenfordsPy:
         data.datainit(input)
         data.updatefirstdigits()
 
-        if testtype == "Kuiper":
-            self.result = numerics.kuipertest(data.firstdigits, plot=plottest)
-            print("Kuiper's test value V = {:.4f}".format(self.result))
-            if printsignificance:
-                significance = numerics.kuipertestsig(self.result)
-                print("Alpha  Significant?")
-                print("-----  ------------")
-                for alpha in sorted(significance.keys()):
-                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
-
-        if testtype == "KS":
-            self.result = numerics.kstest(data.firstdigits, plot=plottest)
-            print("Kolmogorov-Smirnov test value D = {:.4f}".format(self.result))
-            if printsignificance:
-                significance = numerics.kstestsig(self.result)
-                print("Alpha  Significant?")
-                print("-----  ------------")
-                for alpha in sorted(significance.keys()):
-                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
-
-        if testtype == "m":
-            self.result = numerics.mtest(data.firstdigits, plot=plottest)
-            print("Leemis' m test value m = {:.4f}".format(self.result))
-            if printsignificance:
-                significance = numerics.mtestsig(self.result)
-                print("Alpha  Significant?")
-                print("-----  ------------")
-                for alpha in sorted(significance.keys()):
-                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
-
-        if testtype == "d":
-            self.result = numerics.dtest(data.firstdigits, plot=plottest)
-            print("Cho-Gaines' s test value d = {:.4f}".format(self.result))
-            if printsignificance:
-                significance = numerics.dtestsig(self.result)
-                print("Alpha  Significant?")
-                print("-----  ------------")
-                for alpha in sorted(significance.keys()):
-                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
+        self.result = numerics.test(testtype,
+                                    data.firstdigits,
+                                    plottest,
+                                    printsignificance
+                                    )
 
     def analyzeexcel(self,
                      filename,
@@ -153,42 +131,8 @@ class BenfordsPy:
 
         data.updatefirstdigits()
 
-        if testtype == "Kuiper":
-            self.result = numerics.kuipertest(data.firstdigits, plot=plottest)
-            print("Kuiper's test value V = {:.4f}".format(self.result))
-            if printsignificance:
-                significance = numerics.kuipertestsig(self.result)
-                print("Alpha  Significant?")
-                print("-----  ------------")
-                for alpha in sorted(significance.keys()):
-                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
-
-        if testtype == "KS":
-            self.result = numerics.kstest(data.firstdigits, plot=plottest)
-            print("Kolmogorov-Smirnov test value D = {:.4f}".format(self.result))
-            if printsignificance:
-                significance = numerics.kstestsig(self.result)
-                print("Alpha  Significant?")
-                print("-----  ------------")
-                for alpha in sorted(significance.keys()):
-                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
-
-        if testtype == "m":
-            self.result = numerics.mtest(data.firstdigits, plot=plottest)
-            print("Leemis' m test value m = {:.4f}".format(self.result))
-            if printsignificance:
-                significance = numerics.mtestsig(self.result)
-                print("Alpha  Significant?")
-                print("-----  ------------")
-                for alpha in sorted(significance.keys()):
-                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
-
-        if testtype == "d":
-            self.result = numerics.dtest(data.firstdigits, plot=plottest)
-            print("Cho-Gaines' s test value d = {:.4f}".format(self.result))
-            if printsignificance:
-                significance = numerics.dtestsig(self.result)
-                print("Alpha  Significant?")
-                print("-----  ------------")
-                for alpha in sorted(significance.keys()):
-                    print("{:1.2f}   {}".format(alpha, significance[alpha]))
+        self.result = numerics.test(testtype,
+                                    data.firstdigits,
+                                    plottest,
+                                    printsignificance
+                                    )
