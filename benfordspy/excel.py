@@ -2,8 +2,8 @@
 This class accesses data from excel data sheets.
 
 Features to implement:
-- Apply regular expressions to filter
--
+- Apply regular expressions to filter.
+- Filter by cell range.
 """
 
 from openpyxl import (load_workbook,
@@ -20,7 +20,7 @@ class ExcelDB:
                                 )
         self.wslist = self.wb.sheetnames
 
-        filter = self.Filter()
+        filter = self.Filter() # What is this doing here?
 
     class Filter:
         """
@@ -57,14 +57,14 @@ class ExcelDB:
             include = set()
             exclude = set()
 
-            defaultinclude = True
+            defaultinclude = False
 
         class CellRange:
 
             include = set()
             exclude = set()
 
-            defaultinclude = True
+            defaultinclude = False
 
     def extractnumbers(self):
         """
