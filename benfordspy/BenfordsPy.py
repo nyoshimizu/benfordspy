@@ -69,10 +69,10 @@ class BenfordsPy:
                      rowlblincldefault=False,
                      collblincl=None,
                      collblexcl=None,
-                     collblincldefault=True,
+                     collblincldefault=False,
                      celrngincl=None,
                      celrngexcl=None,
-                     celrngincldefault=True,
+                     celrngincldefault=False,
                      plottest=False,
                      printsignificance=False
                      ):
