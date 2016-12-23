@@ -67,7 +67,7 @@ cells.
 
 ## Parameters
 
-These are the parameters that guide the analysis.
+These are the parameters that set the analysis.
 
 * *testtype*: A number of significance tests are available, as described above. They are set using the *testtype*
 parameter, and can be set to "Kuiper," "KS," "m," or "d," the latter two corresponding to Leemis' and Cho and Gaines'
@@ -75,7 +75,17 @@ tests, respectively.
 * *plottest*: This flag, when True, will generate a plot to view the results using Matplotlib.
 * *printsignificance*: This flag, when True, will print the results of the significance test to the output.
 
-Their usage can be seen in the examples below.
+Filtering is done by labels or row/column numbers. Labels are strings that exist anywhere in that row or column.
+Row/columns can be included or excluded based on either strings or their number: e.g., include all rows that have
+the string "Profit" in them or exclude columns three to six.
+
+Each of these also has a default include flag, for example include all row numbers by default or include all
+column labels by default. Then, exclusions can be provided so that e.g. all row numbers except six to seven are
+included or all column labels except "Balance Sheet" are included. By default, all the default include flags are
+False so at least one for both row and column must be enabled, or specific rows or labels must be included; otherwise,
+no data will be loaded.
+
+Usage can be seen in the examples below.
 
 ## Direct analysis
 
@@ -87,7 +97,9 @@ import benfordspy.BenfordsPy as BP
 mydata = [1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 7, 8, 9]
 test = BP.BenfordsPy()
 test.analyzelist(mylist,
-                 testtype="Kuiper"
+                 testtype="Kuiper",
+                 rowlblincldefault=True,
+                 collblincldefault=True
                  )
 ```
 
@@ -101,6 +113,8 @@ import BenfordsPy as BP
 test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
+                  rowlblincldefault=True,
+                  collblincldefault=True
                   )
 ```
 
@@ -115,14 +129,14 @@ containing "Assets" is desired, the string "Assets" can be included so that any 
 include that string anywhere in that row/column (exact and case-sensitive) will contribute to the analysis.
 Rows/columns can be both included and excluded. There is also a flag for inclusion by default, used for cases where
 a row/column label is not explicitly included or excluded.
+* Cell ranges: not implemented.
 
 Note that a row/column is included if it is not in the exclude list, and it is in the include list
 or the default inclusion flag is true. So if a row/column name is in both the inclusion and exclusion
 lists (presumably a mistake), it will be included or excluded based on the default inclusion flag.
 
-The default value for the flag for default inclusion for rows is False but for columns is True.
+To include the Sheet1 and Sheet2 worksheets, include all rows except "Assets," and display all the results:
 
-To include the Sheet1 and Sheet2 worksheets and to include all rows except "Assets":
 ```python
 import BenfordsPy as BP
 
@@ -130,21 +144,68 @@ test = BP.BenfordsPy()
 test.analyzeexcel('data.xlsx',
                   testtype="KS",
                   wkshtincl={"Sheet1", "Sheet2"},
+                  rowlblincldefault=True,
                   rowlblexcl={"Assets"},
-                  rowlblincldefault=True
+                  collblincldefault=True,
+                  plottest=True,
+                  printsignificance=True
                   )
 ```
 
 Similar sets of strings can be passed on for *rowblincl*, and their respective variables for columns
 *collblincl*, *collblexcl*, and *collblincldefault*.
 
+## CSV
+
+A CSV file can be analyzed by creating a BenfordsPy object and running its analyzeCSV method:
+
+```python
+import BenfordsPy as BP
+
+test = BP.BenfordsPy()
+test.analyzeCSV('data.csv',
+                testtype="KS",
+                rowlblincldefault=True,
+                collblincldefault=True
+                )
+```
+
+Note that it requires a filename and the type of significance test to be applied.
+
+Data filtering is available by row/column names and row/column numbers.
+
+* Row and column labels: The values to be included can be filtered by strings in the worksheet. If a row
+containing "Assets" is desired, the string "Assets" can be included so that any rows/columns that
+include that string anywhere in that row/column (exact and case-sensitive) will contribute to the analysis.
+Rows/columns can be both included and excluded. There is also a flag for inclusion by default, used for cases where
+a row/column label is not explicitly included or excluded.
+* Row and column numbers: Specific row/columns can be included by number.
+
+Note that a row/column is included if it is not in the exclude list, and it is in the include list
+or the default inclusion flag is true. So if a row/column name is in both the inclusion and exclusion
+lists (presumably a mistake), it will be included or excluded based on the default inclusion flag.
+
+```python
+import BenfordsPy as BP
+
+test = BP.BenfordsPy()
+test.analyzeCSV('data.csv',
+                testtype="KS",
+                rowlblincldefault=True,
+                colnumincl={3, 4, 5, 6},
+                plottest=True,
+                printsignificance=True
+                )
+```
+
 # To do:
 
-* Add interface for CSV, XML, JSON(?).
-* Add web interface.
+* Add interface for XML, JSON.
+* Add web / scraping interface.
 * Incorporate some sort of automated subset analysis.
 * Incorporate regular expressions to data filtering.
 * Incorporate filtering by cell ranges of Excel files.
+* Parse dates as well (?).
 
 # References
 
